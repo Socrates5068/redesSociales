@@ -12,19 +12,24 @@
             <thead class="bg-primary text-light">
                 <tr>
                     <th scole="col">Titulo</th>
-                    <th scole="col">Mensaje</th>
+                    <th scole="col">Comunicado</th>
                     <th scole="col">Acciones</th>
                 </tr>
             </thead>
 
             <tbody>
-                <tr>
-                    <td>Beca</td>
-                    <td>Se comunica...</td>
-                    <td>
 
+                @foreach($comunicados as $comunicado)
+                <tr>
+                    <td>{{$comunicado->titulo}}</td>
+                    <td>{{$comunicado->mensaje}}</td>
+                    <td>
+                        <a href="" class="btn btn-danger">Eliminar</a>
+                        <a href="" class="btn btn-dark">Editar</a>
+                        <a href="{{ route ('comunicados.show', ['comunicado' => $comunicado->id]) }}" class="btn btn-success">Ver</a>
                     </td>
                 </tr>
+                @endforeach
             </tbody>
         </table>
     </div>

@@ -6,13 +6,14 @@ use App\Comunicado;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Intervention\Image\Facades\Image;
 
 class ComunicadoController extends Controller
 {
 
     public function __construct()
     {
-     $this->middleware('auth');
+        $this->middleware('auth', ['except' => 'show']);
     }
     /**
      * Display a listing of the resource.
@@ -21,7 +22,9 @@ class ComunicadoController extends Controller
      */
     public function index()
     {
-        return view('comunicados.index');
+        $comunicados = auth()->user()->comunicados;
+        
+        return view('comunicados.index')->with('comunicados', $comunicados);
     }
 
     /**
@@ -52,12 +55,24 @@ class ComunicadoController extends Controller
         //obtener la ruta de la imagen
         $ruta_imagen = $request['imagen']->store('upload-comunicados', 'public');
 
-        //almacenar en la bd
-        DB::table('comunicados')->insert([
+        //Redimensionar la imagen
+        $img = Image::make (public_path("storage/{$ruta_imagen}"))->fit(720, 960);
+        $img->save ();
+
+        //almacenar en la bd (sin modelo)
+        /* DB::table('comunicados')->insert([
             'titulo' => $data['titulo'],
             'mensaje' => $data['mensaje'],
             'imagen' => $ruta_imagen,
             'user_id' => Auth::user()->id,
+        ]); */
+
+        //almacenar en la bd (con modelo)
+
+        auth()->user()->comunicados()->create([
+            'titulo' => $data['titulo'],
+            'mensaje' => $data['mensaje'],
+            'imagen' => $ruta_imagen
         ]);
 
         //Redireccionar
@@ -74,7 +89,7 @@ class ComunicadoController extends Controller
      */
     public function show(Comunicado $comunicado)
     {
-        //
+        return view('comunicados.show', compact('comunicado'));
     }
 
     /**

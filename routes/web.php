@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,6 +21,7 @@ Route::get('/', function () {
 Route::get('/comunicados', 'ComunicadoController@index')->name('comunicados.index');
 Route::get('/comunicados/create', 'ComunicadoController@create')->name('comunicados.create');
 Route::post('/comunicados', 'ComunicadoController@store')->name('comunicados.store');
+Route::get('/comunicados/{comunicado}', 'ComunicadoController@show')->name('comunicados.show');
 
 Auth::routes();
 

@@ -36,4 +36,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /* Relación 1:n de Usuario a comunicados */
+    public function comunicados(){
+        return $this->hasMany(Comunicado::class);
+    }
 }
