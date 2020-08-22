@@ -22,6 +22,9 @@ Route::get('/comunicados', 'ComunicadoController@index')->name('comunicados.inde
 Route::get('/comunicados/create', 'ComunicadoController@create')->name('comunicados.create');
 Route::post('/comunicados', 'ComunicadoController@store')->name('comunicados.store');
 Route::get('/comunicados/{comunicado}', 'ComunicadoController@show')->name('comunicados.show');
+Route::get('/comunicados/{comunicado}/edit', 'ComunicadoController@edit')->name('comunicados.edit');
+Route::put('/comunicados/{comunicado}', 'ComunicadoController@update')->name('comunicados.update');
+
 
 Auth::routes();
 

@@ -100,7 +100,7 @@ class ComunicadoController extends Controller
      */
     public function edit(Comunicado $comunicado)
     {
-        //
+        return view('comunicados.edit', compact('comunicado'));
     }
 
     /**
@@ -112,7 +112,36 @@ class ComunicadoController extends Controller
      */
     public function update(Request $request, Comunicado $comunicado)
     {
-        //
+        //Revisar el policy
+        $this->authorize('update', $comunicado);
+
+        //validación
+        $data = request()->validate([
+            'titulo' => 'required|min:6',
+            'mensaje' => 'required',
+        ]);
+
+        //Asignar los valores
+        $comunicado->titulo = $data['titulo'];
+        $comunicado->mensaje = $data['mensaje'];
+
+        //si es usuario sube una nueva imagen
+        if(request('imagen')){
+            //obtener la ruta de la imagen
+            $ruta_imagen = $request['imagen']->store('upload-comunicados', 'public');
+
+            //Redimensionar la imagen
+            $img = Image::make (public_path("storage/{$ruta_imagen}"))->fit(720, 960);
+            $img->save();
+
+            //Asignar al objeto
+            $comunicado->imagen = $ruta_imagen;
+        }
+
+        $comunicado->save();
+
+        //redireccionar
+        return redirect()->action('ComunicadoController@index');
     }
 
     /**

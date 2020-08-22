@@ -5,7 +5,7 @@
     <h1 class="text-center mb-4">{{$comunicado->titulo}}</h1>
 
     <div class="imagen-comunicado">
-    <img src="/storage/{{$comunicado->imagen}}" class="w-100">
+    <img src="/storage/{{$comunicado->imagen}}" class="w-100" style="height: 500px;">
     </div>
 
     <div class="receta-meta">

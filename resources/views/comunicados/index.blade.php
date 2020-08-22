@@ -25,7 +25,7 @@
                     <td>{{$comunicado->mensaje}}</td>
                     <td>
                         <a href="" class="btn btn-danger">Eliminar</a>
-                        <a href="" class="btn btn-dark">Editar</a>
+                        <a href="{{ route ('comunicados.edit', ['comunicado' => $comunicado->id]) }}" class="btn btn-success" class="btn btn-dark">Editar</a>
                         <a href="{{ route ('comunicados.show', ['comunicado' => $comunicado->id]) }}" class="btn btn-success">Ver</a>
                     </td>
                 </tr>
