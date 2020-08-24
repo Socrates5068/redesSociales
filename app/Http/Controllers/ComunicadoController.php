@@ -152,6 +152,13 @@ class ComunicadoController extends Controller
      */
     public function destroy(Comunicado $comunicado)
     {
-        //
+
+        //Ejecutar el Policy
+        $this->authorize('delete', $comunicado);
+
+        //Eliminar la receta
+        $comunicado->delete();
+
+        return redirect()->action('ComunicadoController@index');
     }
 }

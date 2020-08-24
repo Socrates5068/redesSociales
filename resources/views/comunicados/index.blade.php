@@ -22,11 +22,13 @@
                 @foreach($comunicados as $comunicado)
                 <tr>
                     <td>{{$comunicado->titulo}}</td>
-                    <td>{{$comunicado->mensaje}}</td>
+                    <td>{!! $comunicado->mensaje !!}</td>
                     <td>
-                        <a href="" class="btn btn-danger">Eliminar</a>
-                        <a href="{{ route ('comunicados.edit', ['comunicado' => $comunicado->id]) }}" class="btn btn-success" class="btn btn-dark">Editar</a>
-                        <a href="{{ route ('comunicados.show', ['comunicado' => $comunicado->id]) }}" class="btn btn-success">Ver</a>
+                        <eliminar-comunicado
+                            comunicado-id={{$comunicado->id}}
+                        ></eliminar-comunicado>                       
+                        <a href="{{ route ('comunicados.edit', ['comunicado' => $comunicado->id]) }}" class="btn btn-dark mr-1 w-100 d-block mb-2" class="btn btn-dark">Editar</a>
+                        <a href="{{ route ('comunicados.show', ['comunicado' => $comunicado->id]) }}" class="btn btn-success mr-1 w-100 d-block">Ver</a>
                     </td>
                 </tr>
                 @endforeach

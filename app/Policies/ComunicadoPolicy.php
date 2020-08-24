@@ -54,7 +54,7 @@ class ComunicadoPolicy
     public function update(User $user, Comunicado $comunicado)
     {
         //Revisa si es usuario autenticado es el mismo que creo la receta
-        return $user->id !== $comunicado->user_id;
+        return $user->id === $comunicado->user_id;
     }
 
     /**
@@ -66,7 +66,8 @@ class ComunicadoPolicy
      */
     public function delete(User $user, Comunicado $comunicado)
     {
-        //
+        //Revisa si el usuario autenticado es el mismo que creo la receta
+        return $user->id === $comunicado->user_id;
     }
 
     /**

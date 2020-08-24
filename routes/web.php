@@ -24,6 +24,7 @@ Route::post('/comunicados', 'ComunicadoController@store')->name('comunicados.sto
 Route::get('/comunicados/{comunicado}', 'ComunicadoController@show')->name('comunicados.show');
 Route::get('/comunicados/{comunicado}/edit', 'ComunicadoController@edit')->name('comunicados.edit');
 Route::put('/comunicados/{comunicado}', 'ComunicadoController@update')->name('comunicados.update');
+Route::delete('/comunicados/{comunicado}', 'ComunicadoController@destroy')->name('comunicados.destroy');
 
 
 Auth::routes();
