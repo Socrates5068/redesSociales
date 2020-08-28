@@ -5,7 +5,9 @@
 @endsection
 
 @section('botones')
-    <a href="{{route('comunicados.index')}}" class="btn btn-primary mr-2">Administrar comunicado</a>
+    <a href="{{route('comunicados.index')}}" class="btn btn-outline-danger mr-2 text-uppercase font-weight-bold">
+        <svg class="icono" viewBox="0 0 20 20" fill="currentColor" className="chevron-left w-6 h-6"><path fillRule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
+        Administrar comunicado</a>
 @endsection
 
 @section('content')
@@ -17,7 +19,7 @@
             @csrf
             @method('PUT')
                 <div class="form-group">
-                    <label class="titulo">Titulo comunicado</label>
+                    <label for="titulo">Titulo comunicado</label>
 
                     <input type="text" name="titulo" 
                     class="form-control @error('titulo') is-invalid @enderror "

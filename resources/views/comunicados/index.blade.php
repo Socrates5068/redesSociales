@@ -1,7 +1,7 @@
 @extends('layouts.app')
-
+    
 @section('botones')
-    <a href="{{route('comunicados.create')}}" class="btn btn-primary mr-2">Crear comunicado</a>
+    @include('ui.navegacion')
 @endsection
 
 @section('content')
@@ -34,6 +34,9 @@
                 @endforeach
             </tbody>
         </table>
+        <div class="col-12 mt-4 justify-content-center d-flex">
+            {{ $comunicados->links() }}
+        </div>        
     </div>
 
 @endsection

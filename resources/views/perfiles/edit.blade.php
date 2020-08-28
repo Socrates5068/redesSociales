@@ -7,27 +7,34 @@
 @section('botones')
     <a href="{{route('comunicados.index')}}" class="btn btn-outline-danger mr-2 text-uppercase font-weight-bold">
         <svg class="icono" viewBox="0 0 20 20" fill="currentColor" className="chevron-left w-6 h-6"><path fillRule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
-        Administrar comunicado</a>
+        Volver</a>
 @endsection
 
 @section('content')
-    <h1 class="text-center mb-5">Crear comunicados</h1>
+    <h1 class="text-center">Editar mi perfil</h1>
 
     <div class="row justify-content-center mt-5">
-        <div class="col-md-8">
-        <form method="POST" action="{{ route('comunicados.store')}}" enctype="multipart/form-data" novalidate>
+        <div class="col-md-10 bg-white p-3">
+            <form
+            action="{{ route('perfiles.update', ['perfil' => $perfil->id ]) }}"
+            method="POST"
+            enctype="multipart/form-data"
+            >
             @csrf
-                <div class="form-group">
-                    <label class="titulo">Titulo comunicado</label>
+            @method('PUT')
 
-                    <input type="text" name="titulo" 
-                    class="form-control @error('titulo') is-invalid @enderror "
-                    id="titulo" 
-                    placeholder="Titulo comunicado"
-                    value= "{{old('titulo')}}"                    
+                <div class="form-group">
+                    <label for="nombre">Nombre</label>
+
+                    <input type="text" 
+                    name="nombre" 
+                    class="form-control @error('nombre') is-invalid @enderror "
+                    id="nombre" 
+                    placeholder="Tu nombre"
+                    value= "{{$perfil->usuario->name}}"                    
                     />
 
-                    @error('titulo')
+                    @error('nombre')
                         <span class="invalid-feedback d-block" role="alert">
                             <strong>{{$message}}</strong>
                         </span>
@@ -35,14 +42,14 @@
                 </div>
 
                 <div class="form-group mt-3">
-                    <label for="mensaje">Comunicado</label>
-                    <input id="mensaje" type="hidden" name="mensaje" value="{{ old('mensaje') }}" />
+                    <label for="biografia">Biografía</label>
+                <input id="biografia" type="hidden" name="biografia" value="{{ $perfil->biografia }}" />
                     <trix-editor 
-                        class="form-control @error ('mensaje') is-invalid @enderror"
-                        style="min-height: 400px"
-                        input="mensaje"></trix-editor>
+                        class="form-group @error ('biografia') is-invalid @enderror"
+                        input="biografia">
+                    </trix-editor>
 
-                    @error('mensaje')
+                    @error('biografia')
                         <span class="invalid-feedback d-block" role="alert">
                             <strong>{{$message}}</strong>
                         </span>
@@ -50,27 +57,37 @@
                 </div>
 
                 <div class="form-group mt-3">
-                    <label for="imagen">Elige una imagen</label>
+                    <label for="imagen">Tu imagen</label>
                     <input 
                         id="imagen"
                         type="file"
                         class="form-control @error('imagen') isinvalid @enderror"
                         name="imagen"
                     />
-                    @error('imagen')
-                        <span class="invalid-feedback d-block" role="alert">
-                            <strong>{{$message}}</strong>
-                        </span>
-                    @enderror
+
+                    @if ($perfil->imagen)
+                        <div class="mt-4">
+                            <p>Imagen Actual</p>
+                        <img src="/storage/{{$perfil->imagen}}" style="height: 300px;">
+
+                        </div>
+
+                        @error('imagen')
+                            <span class="invalid-feedback d-block" role="alert">
+                                <strong>{{$message}}</strong>
+                            </span>
+                        @enderror
+                    @endif
                 </div>
 
                 <div class="form-group">
-                     <input type="submit" class="btn btn-primary" value="Agregar comunicado" />
-                 </div>
+                    <input type="submit" class="btn btn-primary" value="Actualizar perfil" />
+                </div>
 
             </form>
         </div>
     </div>
+
 
 @endsection
 

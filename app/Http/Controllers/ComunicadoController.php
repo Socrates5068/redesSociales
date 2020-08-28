@@ -22,7 +22,11 @@ class ComunicadoController extends Controller
      */
     public function index()
     {
-        $comunicados = auth()->user()->comunicados;
+
+        //$comunicados = auth()->user()->comunicados;
+        $usuario = auth()->user()->id;
+        //paginacion de comunicados
+        $comunicados = Comunicado::where('user_id', $usuario)->paginate(6);
         
         return view('comunicados.index')->with('comunicados', $comunicados);
     }
@@ -58,7 +62,8 @@ class ComunicadoController extends Controller
         //Redimensionar la imagen
         $img = Image::make (public_path("storage/{$ruta_imagen}"))->fit(720, 960);
         $img->save ();
-
+        
+        
         //almacenar en la bd (sin modelo)
         /* DB::table('comunicados')->insert([
             'titulo' => $data['titulo'],
@@ -74,7 +79,7 @@ class ComunicadoController extends Controller
             'mensaje' => $data['mensaje'],
             'imagen' => $ruta_imagen
         ]);
-
+        
         //Redireccionar
         return redirect()->action('ComunicadoController@index');
 
@@ -100,6 +105,9 @@ class ComunicadoController extends Controller
      */
     public function edit(Comunicado $comunicado)
     {
+        //Revisar el policy
+        $this->authorize('view', $comunicado);
+
         return view('comunicados.edit', compact('comunicado'));
     }
 

@@ -26,6 +26,9 @@ Route::get('/comunicados/{comunicado}/edit', 'ComunicadoController@edit')->name(
 Route::put('/comunicados/{comunicado}', 'ComunicadoController@update')->name('comunicados.update');
 Route::delete('/comunicados/{comunicado}', 'ComunicadoController@destroy')->name('comunicados.destroy');
 
+Route::get('/perfiles/{perfil}','PerfilController@show')->name('perfiles.show');
+Route::get('/perfiles/{perfil}/edit','PerfilController@edit')->name('perfiles.edit');
+Route::put('/perfiles/{perfil}', 'PerfilController@update')->name('perfiles.update');
 
 Auth::routes();
 

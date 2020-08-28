@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Comunicado;
+use App\Perfil;
 use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class ComunicadoPolicy
+class PerfilPolicy
 {
     use HandlesAuthorization;
 
@@ -25,13 +25,13 @@ class ComunicadoPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\User  $user
-     * @param  \App\Comunicado  $comunicado
+     * @param  \App\Perfil  $perfil
      * @return mixed
      */
-    public function view(User $user, Comunicado $comunicado)
+    public function view(User $user, Perfil $perfil)
     {
         //
-        return $user->id === $comunicado->user_id;
+        return $user->id === $perfil->user_id;
     }
 
     /**
@@ -49,36 +49,35 @@ class ComunicadoPolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\User  $user
-     * @param  \App\Comunicado  $comunicado
+     * @param  \App\Perfil  $perfil
      * @return mixed
      */
-    public function update(User $user, Comunicado $comunicado)
+    public function update(User $user, Perfil $perfil)
     {
-        //Revisa si es usuario autenticado es el mismo que creo la receta
-        return $user->id === $comunicado->user_id;
+        // Revisa si es usuario autenticado es el q desea modificar el perfil
+        return $user->id === $perfil->user_id;
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\User  $user
-     * @param  \App\Comunicado  $comunicado
+     * @param  \App\Perfil  $perfil
      * @return mixed
      */
-    public function delete(User $user, Comunicado $comunicado)
+    public function delete(User $user, Perfil $perfil)
     {
-        //Revisa si el usuario autenticado es el mismo que creo la receta
-        return $user->id === $comunicado->user_id;
+        //
     }
 
     /**
      * Determine whether the user can restore the model.
      *
      * @param  \App\User  $user
-     * @param  \App\Comunicado  $comunicado
+     * @param  \App\Perfil  $perfil
      * @return mixed
      */
-    public function restore(User $user, Comunicado $comunicado)
+    public function restore(User $user, Perfil $perfil)
     {
         //
     }
@@ -87,10 +86,10 @@ class ComunicadoPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\User  $user
-     * @param  \App\Comunicado  $comunicado
+     * @param  \App\Perfil  $perfil
      * @return mixed
      */
-    public function forceDelete(User $user, Comunicado $comunicado)
+    public function forceDelete(User $user, Perfil $perfil)
     {
         //
     }
