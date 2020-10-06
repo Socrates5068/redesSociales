@@ -13,7 +13,7 @@ class ComunicadoController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth', ['except' => 'show']);
+        $this->middleware('auth', ['except' => ['show', 'search']]);
     }
     /**
      * Display a listing of the resource.
@@ -168,5 +168,14 @@ class ComunicadoController extends Controller
         $comunicado->delete();
 
         return redirect()->action('ComunicadoController@index');
+    }
+
+    public function search(Request $request)
+    {
+        $busqueda = $request->get('buscar');
+        $comunicados = Comunicado::where('titulo', 'like', '%' . $busqueda . '%')->paginate(6);
+        $comunicados->appends(['buscar' => $busqueda]);
+        
+        return view('busquedas.show', compact('comunicados', 'busqueda'));
     }
 }

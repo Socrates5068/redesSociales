@@ -19,13 +19,13 @@
 </div>
 <h2 class="text-center my-5">Comunicados creados por {{$perfil->usuario->name}}</h2>
 <div class="container">
-    <div class="row mx-auto bg-white p-4">
+    <div class="row mx-auto bg-white p-4 shadow">
         @if(count($comunicados) > 0)
             @foreach($comunicados as $comunicado)
                 <div class="col-md-4 mb-4">
                     <div class="card">
                         <img src="/storage/{{$comunicado->imagen}}" class="card-img-top">
-                        <div class="card-body">
+                        <div class="card-body shadow">
                             <h3 class="d-flex justify-content-center">{{$comunicado->titulo}}</h3>
                             <a href="{{ route('comunicados.show', ['comunicado' => $comunicado->id]) }}" class="btn btn-primary d-block mt-4 text-uppercase font-weight-bold">Ver comunicado</a>
                         </div>

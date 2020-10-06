@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\InicioController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -14,9 +15,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'InicioController@index')->name('inicio.index');
+
 
 Route::get('/comunicados', 'ComunicadoController@index')->name('comunicados.index');
 Route::get('/comunicados/create', 'ComunicadoController@create')->name('comunicados.create');
@@ -25,6 +25,9 @@ Route::get('/comunicados/{comunicado}', 'ComunicadoController@show')->name('comu
 Route::get('/comunicados/{comunicado}/edit', 'ComunicadoController@edit')->name('comunicados.edit');
 Route::put('/comunicados/{comunicado}', 'ComunicadoController@update')->name('comunicados.update');
 Route::delete('/comunicados/{comunicado}', 'ComunicadoController@destroy')->name('comunicados.destroy');
+
+//Buscador de recetas
+Route::get('/buscar', 'ComunicadoController@search')->name('buscar.show');
 
 Route::get('/perfiles/{perfil}','PerfilController@show')->name('perfiles.show');
 Route::get('/perfiles/{perfil}/edit','PerfilController@edit')->name('perfiles.edit');

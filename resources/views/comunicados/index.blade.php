@@ -7,7 +7,7 @@
 @section('content')
     <h2 class="text-center mb-5">Administrar comunicados</h2>
 
-    <div class="col-md-10 mx-auto bg-white p-3">
+    <div class="col-md-10 mx-auto bg-white p-3 shadow">
         <table class="table">
             <thead class="bg-primary text-light">
                 <tr>
