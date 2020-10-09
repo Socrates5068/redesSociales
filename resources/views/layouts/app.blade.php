@@ -10,6 +10,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
+    <script src="https://trix-editor.org/js/attachments.js"></script>
     <script src="{{ asset('js/app.js') }}" defer></script>
     @yield('scripts')
 
@@ -67,7 +68,7 @@
                                     </a>
                                     <a class="dropdown-item" 
                                         href="{{ route('comunicados.index') }}">
-                                        {{ __('Ver comunicados') }}
+                                        {{ __('Administrar comunicados') }}
                                     </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();

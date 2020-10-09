@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'InicioController@index')->name('inicio.index');
-
+Route::get('/prueba', 'PruebaController@index')->name('prueba.index');
 
 Route::get('/comunicados', 'ComunicadoController@index')->name('comunicados.index');
 Route::get('/comunicados/create', 'ComunicadoController@create')->name('comunicados.create');

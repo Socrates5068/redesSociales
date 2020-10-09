@@ -26,8 +26,8 @@ class ComunicadoController extends Controller
         //$comunicados = auth()->user()->comunicados;
         $usuario = auth()->user()->id;
         //paginacion de comunicados
-        $comunicados = Comunicado::where('user_id', $usuario)->paginate(6);
-        
+        $comunicados = Comunicado::where('user_id', $usuario)->latest()->paginate(6);
+
         return view('comunicados.index')->with('comunicados', $comunicados);
     }
 
@@ -51,39 +51,56 @@ class ComunicadoController extends Controller
     {
         //validación
         $data = request()->validate([
-            'titulo' => 'required|min:6',
+            'titulo' => 'required|min:4',
             'mensaje' => 'required',
-            'imagen' => 'required|image'
+            //'imagen' => 'required|image'
         ]);
 
-        //obtener la ruta de la imagen
-        $ruta_imagen = $request['imagen']->store('upload-comunicados', 'public');
+        if ($request['imagen'] != null) {
+            //obtener la ruta de la imagen
+            $ruta_imagen = $request['imagen']->store('upload-comunicados', 'public');
 
-        //Redimensionar la imagen
-        $img = Image::make (public_path("storage/{$ruta_imagen}"))->fit(720, 960);
-        $img->save ();
-        
-        
-        //almacenar en la bd (sin modelo)
-        /* DB::table('comunicados')->insert([
+            //Redimensionar la imagen
+            $img = Image::make(public_path("storage/{$ruta_imagen}"))->resize(900, null, function ($constraint) {
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            });
+            $img->save();
+
+
+
+            //almacenar en la bd (sin modelo)
+            /* DB::table('comunicados')->insert([
             'titulo' => $data['titulo'],
             'mensaje' => $data['mensaje'],
             'imagen' => $ruta_imagen,
             'user_id' => Auth::user()->id,
         ]); */
 
-        //almacenar en la bd (con modelo)
+            //almacenar en la bd (con modelo)
 
-        auth()->user()->comunicados()->create([
-            'titulo' => $data['titulo'],
-            'mensaje' => $data['mensaje'],
-            'imagen' => $ruta_imagen
-        ]);
-        
-        //Redireccionar
-        return redirect()->action('ComunicadoController@index');
+            auth()->user()->comunicados()->create([
+                'titulo' => $data['titulo'],
+                'mensaje' => $data['mensaje'],
+                'imagen' => $ruta_imagen
+            ]);
 
-        dd( $request->all() );
+            //Redireccionar
+            return redirect()->action('ComunicadoController@index');
+
+            dd($request->all());
+        } else {
+            
+            auth()->user()->comunicados()->create([
+                'titulo' => $data['titulo'],
+                'mensaje' => $data['mensaje'],
+            ]);
+
+            //Redireccionar
+            return redirect()->action('ComunicadoController@index');
+
+            dd($request->all());
+        }
     }
 
     /**
@@ -134,12 +151,12 @@ class ComunicadoController extends Controller
         $comunicado->mensaje = $data['mensaje'];
 
         //si es usuario sube una nueva imagen
-        if(request('imagen')){
+        if (request('imagen')) {
             //obtener la ruta de la imagen
             $ruta_imagen = $request['imagen']->store('upload-comunicados', 'public');
 
             //Redimensionar la imagen
-            $img = Image::make (public_path("storage/{$ruta_imagen}"))->fit(720, 960);
+            $img = Image::make(public_path("storage/{$ruta_imagen}"))->fit(720, 960);
             $img->save();
 
             //Asignar al objeto
@@ -175,7 +192,7 @@ class ComunicadoController extends Controller
         $busqueda = $request->get('buscar');
         $comunicados = Comunicado::where('titulo', 'like', '%' . $busqueda . '%')->paginate(6);
         $comunicados->appends(['buscar' => $busqueda]);
-        
+
         return view('busquedas.show', compact('comunicados', 'busqueda'));
     }
 }
