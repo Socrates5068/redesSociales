@@ -13,7 +13,9 @@ class ComunicadoController extends Controller
 
     public function __construct()
     {
+        
         $this->middleware('auth', ['except' => ['show', 'search']]);
+        $this->middleware('verified', ['except' => ['show', 'search']]);
     }
     /**
      * Display a listing of the resource.

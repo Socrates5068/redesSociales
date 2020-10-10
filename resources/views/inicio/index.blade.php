@@ -40,7 +40,7 @@
                     <p>{{ Str::words( strip_tags( $nueva->mensaje ), 20 ) }}</p>
 
                     <a href="{{ route('comunicados.show', ['comunicado' => $nueva->id ])}}"
-                        class="btn btn-primary d-block font-weight-bold text-uppercase"
+                        class="btn btn-primary d-block font-weight-bold text-uppercase btn-receta"
                     >Ver comunicado</a>
                 </div>
             </div>
@@ -55,7 +55,7 @@
                             <img src="/storage/{{$comunicado->imagen}}" class="card-img-top">
                             <div class="card-body shadow">
                                 <h3 class="d-flex justify-content-center">{{$comunicado->titulo}}</h3>
-                                <a href="{{ route('comunicados.show', ['comunicado' => $comunicado->id]) }}" class="btn btn-primary d-block mt-4 text-uppercase font-weight-bold">Ver comunicado</a>
+                                <a href="{{ route('comunicados.show', ['comunicado' => $comunicado->id]) }}" class="btn btn-primary d-block mt-4 text-uppercase font-weight-bold btn-receta">Ver comunicado</a>
                             </div>
                         </div>
                     </div>
