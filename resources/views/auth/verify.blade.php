@@ -14,7 +14,8 @@
                         </div>
                     @endif
 
-                    {{ __('Antes de continuar, por favor pidele a un administrador el Permiso para publicar.') }}
+                    {{ __('Antes de continuar, por favor pidele a un administrador el Permiso para publicar.') }} <br>
+                    {{ __('Por otro lado, puedes ver todos los comunicados publicados') }} <a href="/" class="class">AQUÍ</a>
                    {{--  {{ __('If you did not receive the email') }},
                     <form class="d-inline" method="POST" action="{{ route('verification.resend') }}">
                         @csrf

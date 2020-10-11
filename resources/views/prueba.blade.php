@@ -13,3 +13,10 @@
     //echo "https://graph.facebook.com/IngenieriaDeSistemasPotosi/feed"."?message=".$fields."&access_token=".$token;
     echo "<br><br>".$url;
 ?> --}}
+{{--     @if(Auth::check())
+        @if (Auth::user()->isAdmin())
+            <h2>Admin user enter code here<h2>
+        @else
+            <h2>Solo los administradores tienen acceso aqui :)<h2>
+        @endif
+    @endif --}}

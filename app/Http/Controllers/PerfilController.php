@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Comunicado;
 use auth;
+use App\User;
 use App\Perfil;
+use App\Comunicado;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
 

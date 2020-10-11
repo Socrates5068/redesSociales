@@ -68,7 +68,11 @@
                                     </a>
                                     <a class="dropdown-item" 
                                         href="{{ route('comunicados.index') }}">
-                                        {{ __('Administrar comunicados') }}
+                                        {{ __('Administrar Comunicados') }}
+                                    </a>
+                                    <a class="dropdown-item" 
+                                        href="{{ route('usuarios.index') }}">
+                                        {{ __('Administrar Usuarios') }}
                                     </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();

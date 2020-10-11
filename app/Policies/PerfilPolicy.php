@@ -57,7 +57,7 @@ class PerfilPolicy
         // Revisa si es usuario autenticado es el q desea modificar el perfil
         return $user->id === $perfil->user_id;
     }
-
+    
     /**
      * Determine whether the user can delete the model.
      *

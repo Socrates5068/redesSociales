@@ -31,7 +31,12 @@ Route::get('/buscar', 'ComunicadoController@search')->name('buscar.show');
 
 Route::get('/perfiles/{perfil}','PerfilController@show')->name('perfiles.show');
 Route::get('/perfiles/{perfil}/edit','PerfilController@edit')->name('perfiles.edit');
+Route::get('/perfiles','PerfilController@editrol')->name('perfiles.editrol');
 Route::put('/perfiles/{perfil}', 'PerfilController@update')->name('perfiles.update');
+
+Route::get('/usuarios', 'UserController@index')->name('usuarios.index');
+Route::get('/usuarios/{user}/edit', 'UserController@edit')->name('usuarios.edit');
+Route::put('/usuarios/{user}', 'UserController@update')->name('usuarios.update');
 
 Auth::routes(['verify' => true]);
 

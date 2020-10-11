@@ -44,7 +44,8 @@ class User extends Authenticatable implements MustVerifyEmail
 
 
     //Evento que se ejecuta cuando un usuario es creado
-    protected static function boot(){
+    protected static function boot()
+    {
         parent::boot();
 
         //Asiganar perfil cuando se cree un usuario nuevo
@@ -54,12 +55,21 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /* Relación 1:n de Usuario a comunicados */
-    public function comunicados(){
+    public function comunicados()
+    {
         return $this->hasMany(Comunicado::class);
     }
 
     //relacion 1:1 de usuario y perfil
-    public function perfil(){
+    public function perfil()
+    {
         return $this->hasOne(Perfil::class);
+    }
+
+    public function isAdmin()
+    {
+        if ($this->rol == 'admin') {
+            return true;
+        }
     }
 }
