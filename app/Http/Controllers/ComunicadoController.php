@@ -8,12 +8,16 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
 
+use App\Twpeet;
+use App\Notifications\TweetPublished;
+use App\Tweet;
+use Illuminate\Support\Facades\Notification;
+
 class ComunicadoController extends Controller
 {
-
     public function __construct()
     {
-        
+
         $this->middleware('auth', ['except' => ['show', 'search']]);
         $this->middleware('verified', ['except' => ['show', 'search']]);
     }
@@ -60,8 +64,8 @@ class ComunicadoController extends Controller
 
         if ($request['imagen'] != null) {
             //obtener la ruta de la imagen
-            $ruta_imagen = $request['imagen']->store('upload-comunicados', 'public');
-
+            $ruta_imagen = $request['imagen']->store('upload-comunicados', 'public');      
+            
             //Redimensionar la imagen
             $img = Image::make(public_path("storage/{$ruta_imagen}"))->resize(900, null, function ($constraint) {
                 $constraint->aspectRatio();
@@ -86,17 +90,34 @@ class ComunicadoController extends Controller
                 'mensaje' => $data['mensaje'],
                 'imagen' => $ruta_imagen
             ]);
+            
+            //Publicar en Twitter
+            $message = Tweet::create([
+                'tweet' => strip_tags($data['mensaje']),
+                'img' => $ruta_imagen
+            ]);
+
+            $message->notify(new TweetPublished());
+            $message->delete();
 
             //Redireccionar
             return redirect()->action('ComunicadoController@index');
 
             dd($request->all());
         } else {
-            
+
             auth()->user()->comunicados()->create([
                 'titulo' => $data['titulo'],
                 'mensaje' => $data['mensaje'],
             ]);
+
+            //Publicar en Twitter
+            $message = Tweet::create([
+                'tweet' => strip_tags($data['mensaje']),
+            ]);
+
+            $message->notify(new TweetPublished());
+            $message->delete();
 
             //Redireccionar
             return redirect()->action('ComunicadoController@index');

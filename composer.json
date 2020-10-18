@@ -14,10 +14,13 @@
         "guzzlehttp/guzzle": "^6.3",
         "intervention/image": "^2.5",
         "ixudra/curl": "^6.21",
+        "jublonet/codebird-php": "^3.1",
+        "laravel-notification-channels/twitter": "4.*",
         "laravel/framework": "^7.0",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.1",
-        "laraveles/spanish": "^1.5"
+        "laraveles/spanish": "^1.5",
+        "thujohn/twitter": "^2.3"
     },
     "require-dev": {
         "facade/ignition": "^2.0",

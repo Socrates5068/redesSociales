@@ -12,7 +12,7 @@ class InicioController extends Controller
         //Obtener los comunicados mas nuevos
         //$nuevas = Comunicado::orderBy('created_at', 'DESC')->get();
         $nuevas = Comunicado::latest()->take(5)->get();
-        $comunicados = DB::table('comunicados')->paginate(6);
+        $comunicados = DB::table('comunicados')->latest()->paginate(6);
         return view('inicio.index', compact('nuevas', 'comunicados'));
     }
 }

@@ -34,7 +34,7 @@
         </p>
     </div>
 
-    <div class="comunicado">
+    <div class="container col-12">
         <h2 class="my-3 text-primary"> Comunicado</h2>
         {!! $comunicado->mensaje !!}
     </div>
