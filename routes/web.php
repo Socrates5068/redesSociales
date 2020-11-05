@@ -38,6 +38,11 @@ Route::get('/usuarios', 'UserController@index')->name('usuarios.index');
 Route::get('/usuarios/{user}/edit', 'UserController@edit')->name('usuarios.edit');
 Route::put('/usuarios/{user}', 'UserController@update')->name('usuarios.update');
 
+//Condiciones y servicios
+Route::get('/politica', function (){
+    return view('/condiciones/show');
+});
+
 Auth::routes(['verify' => true]);
 
 //Route::get('/home', 'HomeController@index')->name('home');
