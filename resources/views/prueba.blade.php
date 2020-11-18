@@ -12,6 +12,7 @@
     curl_close($ch);
     //echo "https://graph.facebook.com/IngenieriaDeSistemasPotosi/feed"."?message=".$fields."&access_token=".$token;
     echo "<br><br>".$url;
+    //IngenieriaDeSistemasPotosi/feed?message=Hello World!&access_token=EAAJlNVhYjRMBAJZCMIHHZCwcay1vQHpN3PsKQvKjfy9yUsl1SINrEYjaIYdyv41PYiDP3ri5DN9H3juhl5qnSQjs3YeqoMA7gRjGCdl3mkZAFHUB7DO9WOpjO7caUnPY26UlZAtyk1HR8D5LU9TMheZAxdyXqHS8Kc33ie8JtrRUPA7UTo1E9QpbNulagOd8MPuMIxLsByy9ZASSET4vpirZCgliXufKSNGAWOjOLXctZBBtl3X2gQ0KEeH46pPQvjoZD
 
 ?> --}}
 {{--     @if(Auth::check())
@@ -22,10 +23,23 @@
         @endif
     @endif --}}
 
-<?php
+{{-- <?php
 
 echo public_path();
 echo "<br>";
 echo url('/'.'social/public');
 
-?>
+?> --}}
+
+{{-- Telegram pruebas --}}
+
+{{-- <?php
+
+require_once "../vendor/autoload.php";
+
+$bot = new \TelegramBot\Api\BotApi('1411157049:AAFKE0FnIRvOS_h8vkJoyhceiUctiaLE33c');
+
+$bot->sendMessage("-426827268", "Prueba");
+
+
+?> --}}

@@ -2,16 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Tweet;
 use App\Comunicado;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use Intervention\Image\Facades\Image;
 
-use App\Twpeet;
+//Twitter
 use App\Notifications\TweetPublished;
-use App\Tweet;
+use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Notification;
+use TelegramBot\Api\Types\InputMedia\InputMediaPhoto;
+
+//Telegram
+require_once "../vendor/autoload.php";
 
 class ComunicadoController extends Controller
 {
@@ -92,13 +96,24 @@ class ComunicadoController extends Controller
             ]);
             
             //Publicar en Twitter
-            $message = Tweet::create([
+            /* $message = Tweet::create([
                 'tweet' => strip_tags($data['mensaje']),
                 'img' => $ruta_imagen
             ]);
 
             $message->notify(new TweetPublished());
-            $message->delete();
+            $message->delete(); */
+
+            //Publicar en Telegram
+            /*$bot = new \TelegramBot\Api\BotApi('1411157049:AAFKE0FnIRvOS_h8vkJoyhceiUctiaLE33c');
+            $bot->sendMessage("-426827268", strip_tags($data['mensaje']));
+            
+            $media = new \TelegramBot\Api\Types\InputMedia\ArrayOfInputMedia();
+            $media->addItem(new \TelegramBot\Api\Types\InputMedia\InputMediaPhoto('https://avatars3.githubusercontent.com/u/9335727'));
+            //$media->addItem(new TelegramBot\Api\Types\InputMedia\InputMediaPhoto('https://avatars3.githubusercontent.com/u/9335727'));
+            // Same for video
+            // $media->addItem(new TelegramBot\Api\Types\InputMedia\InputMediaVideo('http://clips.vorwaerts-gmbh.de/VfE_html5.mp4'));
+            $bot->sendMediaGroup("-426827268", $media);*/
 
             //Redireccionar
             return redirect()->action('ComunicadoController@index');
@@ -112,12 +127,16 @@ class ComunicadoController extends Controller
             ]);
 
             //Publicar en Twitter
-            $message = Tweet::create([
+            /* $message = Tweet::create([
                 'tweet' => strip_tags($data['mensaje']),
             ]);
 
             $message->notify(new TweetPublished());
-            $message->delete();
+            $message->delete(); */
+
+            //Publicar en Telegram
+            /*$bot = new \TelegramBot\Api\BotApi('1411157049:AAFKE0FnIRvOS_h8vkJoyhceiUctiaLE33c');
+            $bot->sendMessage("-426827268", strip_tags($data['mensaje']));*/
 
             //Redireccionar
             return redirect()->action('ComunicadoController@index');

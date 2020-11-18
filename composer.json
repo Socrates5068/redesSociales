@@ -20,6 +20,7 @@
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.1",
         "laraveles/spanish": "^1.5",
+        "telegram-bot/api": "^2.3",
         "thujohn/twitter": "^2.3"
     },
     "require-dev": {
