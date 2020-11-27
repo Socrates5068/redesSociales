@@ -2,10 +2,10 @@
     //$fields = array('field1' => 'valor1', 'field2' => urlencode('valor 2'));
     $fields = "Esto es una prueba";
     //$fields_string = http_build_query($fields);
-    $token = "EAAJuZBNenZA6MBAHkrKvVLZArq1sZCgjQQlILzKN2ATM74PmsP2RHoYmCwNkhsD6MmymJ41JJfX6iQRtqmrjNLdFW7zefKnFlKHM8yXZBZAZAqkIgRuNQhm2au4T3GUw5Gp2iCFpLRIHzc0dEyYxRTCWeBNOrhH67BEvlTA77GrXwZDZD";
+    $token = "EAAJlNVhYjRMBABGWlmIQrjab0aDEqsVBwaffdW5U4INWN8JWyO2riBu4NbiTeUZCkZBX2nBCzpnJlOZA6ENy6y1jPDMD6nY2RmTO1IrWvBvFmc9xdn8ZBGY0AWF6awwZAIhF2SccvWGvzMahowyApMTsTFbHg4CZBcvggMfZAllOSh5JwKGisqTOyJHcYToeB0ZD";
     $url = "?message=".$fields."&access_token=".$token;
     $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, "https://graph.facebook.com/IngenieriaDeSistemasPotosi/feed");
+    curl_setopt($ch, CURLOPT_URL, "https://graph.facebook.com/103785118245947/feed");
     curl_setopt($ch, CURLOPT_POST, 1);
     curl_setopt($ch, CURLOPT_POSTFIELDS, $url);
     $data = curl_exec($ch);
