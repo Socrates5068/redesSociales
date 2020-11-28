@@ -1,20 +1,22 @@
-{{-- <?php
+<?php
     //$fields = array('field1' => 'valor1', 'field2' => urlencode('valor 2'));
-    $fields = "Esto es una prueba";
-    //$fields_string = http_build_query($fields);
+    $fields = array('message' => 'Esto es una prueba para ver si funciona el token', 'access_token' => 'EAAJlNVhYjRMBABGWlmIQrjab0aDEqsVBwaffdW5U4INWN8JWyO2riBu4NbiTeUZCkZBX2nBCzpnJlOZA6ENy6y1jPDMD6nY2RmTO1IrWvBvFmc9xdn8ZBGY0AWF6awwZAIhF2SccvWGvzMahowyApMTsTFbHg4CZBcvggMfZAllOSh5JwKGisqTOyJHcYToeB0ZD');
+    //$fields = "Esto es una prueba";
+    $fields_string = http_build_query($fields);
     $token = "EAAJlNVhYjRMBABGWlmIQrjab0aDEqsVBwaffdW5U4INWN8JWyO2riBu4NbiTeUZCkZBX2nBCzpnJlOZA6ENy6y1jPDMD6nY2RmTO1IrWvBvFmc9xdn8ZBGY0AWF6awwZAIhF2SccvWGvzMahowyApMTsTFbHg4CZBcvggMfZAllOSh5JwKGisqTOyJHcYToeB0ZD";
-    $url = "?message=".$fields."&access_token=".$token;
+    //$url = "?message=".$fields_string."&access_token=".$token;
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, "https://graph.facebook.com/103785118245947/feed");
     curl_setopt($ch, CURLOPT_POST, 1);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $url);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $fields_string);
     $data = curl_exec($ch);
     curl_close($ch);
     //echo "https://graph.facebook.com/IngenieriaDeSistemasPotosi/feed"."?message=".$fields."&access_token=".$token;
-    echo "<br><br>".$url;
+    echo "<br><br>".$fields_string;
     //IngenieriaDeSistemasPotosi/feed?message=Hello World!&access_token=EAAJlNVhYjRMBAJZCMIHHZCwcay1vQHpN3PsKQvKjfy9yUsl1SINrEYjaIYdyv41PYiDP3ri5DN9H3juhl5qnSQjs3YeqoMA7gRjGCdl3mkZAFHUB7DO9WOpjO7caUnPY26UlZAtyk1HR8D5LU9TMheZAxdyXqHS8Kc33ie8JtrRUPA7UTo1E9QpbNulagOd8MPuMIxLsByy9ZASSET4vpirZCgliXufKSNGAWOjOLXctZBBtl3X2gQ0KEeH46pPQvjoZD
 
-?> --}}
+?>
+
 {{--     @if(Auth::check())
         @if (Auth::user()->isAdmin())
             <h2>Admin user enter code here<h2>
