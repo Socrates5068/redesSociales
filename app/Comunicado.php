@@ -8,7 +8,7 @@ class Comunicado extends Model
 {
     //Campos q se agregan
     protected $fillable = [
-        'titulo', 'mensaje', 'imagen'
+        'titulo', 'mensaje', 'imagen', 'uuid'
     ];
 
     public function autor ()

@@ -62,3 +62,5 @@ jQuery(document).ready(function() {
         }
     });
 });
+
+require('./dropzone');

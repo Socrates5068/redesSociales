@@ -11,7 +11,19 @@
     <h1 class="text-center mb-4">{{$comunicado->titulo}}</h1>
 
     <div class="imagen-comunicado">
-    <img src="/storage/{{$comunicado->imagen}}" class="w-100" style="img.responsive: max-width: 100%; height: auto;">
+    <img src="/storage/{{$comunicado->imagen}}" 
+    class="w-100" style="img.responsive: max-width: 100%; height: auto;">
+    </div>
+
+    <div class="form-group" class="align-content-center">
+        <strong><label for="prueba">IMÁGENES DE REFERENCIA</label></strong>
+        @php
+            $imgs = $comunicado->imagenes;
+        @endphp
+        @foreach($imgs as $img)
+            <img src="/storage/{{$img->ruta_imagen}}" 
+            class="w-100" />
+        @endforeach    
     </div>
 
     <div class="receta-meta mt-3">

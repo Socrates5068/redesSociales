@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Tweet;
 use App\Comunicado;
+use App\Imagen;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -62,8 +63,9 @@ class ComunicadoController extends Controller
         //validación
         $data = request()->validate([
             'titulo' => 'required|min:4',
-            'mensaje' => 'required',
-            //'imagen' => 'required|image'
+            'mensaje' => 'required|max:2000',
+            'uuid' => 'required',
+            'imagen' => 'image'
         ]);
 
         if ($request['imagen'] != null) {
@@ -92,7 +94,8 @@ class ComunicadoController extends Controller
             auth()->user()->comunicados()->create([
                 'titulo' => $data['titulo'],
                 'mensaje' => $data['mensaje'],
-                'imagen' => $ruta_imagen
+                'imagen' => $ruta_imagen,
+                'uuid' => $data['uuid']
             ]);
             
             //Publicar en Twitter
@@ -134,6 +137,7 @@ class ComunicadoController extends Controller
             auth()->user()->comunicados()->create([
                 'titulo' => $data['titulo'],
                 'mensaje' => $data['mensaje'],
+                'uuid' => $data['uuid']
             ]);
 
             #Publicar en Twitter
@@ -173,6 +177,8 @@ class ComunicadoController extends Controller
      */
     public function show(Comunicado $comunicado)
     {
+        $imagenes = Imagen::where('id_comunicado', $comunicado->uuid)->get();
+        $comunicado->imagenes = $imagenes;
         return view('comunicados.show', compact('comunicado'));
     }
 

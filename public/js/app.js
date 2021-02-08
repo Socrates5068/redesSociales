@@ -77736,6 +77736,8 @@ jQuery(document).ready(function () {
     }
   });
 });
+
+__webpack_require__(/*! ./dropzone */ "./resources/js/dropzone.js");
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")))
 
 /***/ }),
@@ -77924,6 +77926,79 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_FechaComunicado_vue_vue_type_template_id_ca4c320c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ "./resources/js/dropzone.js":
+/*!**********************************!*\
+  !*** ./resources/js/dropzone.js ***!
+  \**********************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+
+document.addEventListener('DOMContentLoaded', function () {
+  if (document.querySelector('#dropzone')) {
+    Dropzone.autoDiscover = false;
+    var dropzone = new Dropzone('div#dropzone', {
+      url: '/imagenes/store',
+      dictDefaultMessage: 'Sube hasta 10 imágenes',
+      maxFiles: 10,
+      required: true,
+      acceptedFiles: ".png,.jpg,.gif,.bmp,.jpeg",
+      addRemoveLinks: true,
+      dictRemoveFile: "Eliminar Imagen",
+      headers: {
+        'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]').content
+      },
+      init: function init() {
+        var _this = this;
+
+        var galeria = document.querySelectorAll('.galeria');
+
+        if (galeria.length > 0) {
+          galeria.forEach(function (imagen) {
+            var imagenPublicada = {};
+            imagenPublicada.size = 1;
+            imagenPublicada.name = imagen.value;
+            imagenPublicada.nombreServidor = imagen.value;
+
+            _this.options.addedfile.call(_this, imagenPublicada);
+
+            _this.options.thumbnail.call(_this, imagenPublicada, "/storage/".concat(imagenPublicada.name));
+
+            imagenPublicada.previewElement.classList.add('dz-success');
+            imagenPublicada.previewElement.classList.add('dz-complete');
+          });
+        }
+      },
+      success: function success(file, respuesta) {
+        // console.log(file);
+        console.log(respuesta);
+        file.nombreServidor = respuesta.archivo;
+      },
+      sending: function sending(file, xhr, formData) {
+        formData.append('uuid', document.querySelector('#uuid').value); // console.log('enviando');
+      },
+      removedfile: function removedfile(file, respuesta) {
+        console.log(file);
+        var params = {
+          imagen: file.nombreServidor,
+          uuid: document.querySelector('#uuid').value
+        };
+        axios.post('/imagenes/destroy', params).then(function (respuesta) {
+          console.log(respuesta); // Eliminar del DOM
+
+          file.previewElement.parentNode.removeChild(file.previewElement);
+        });
+      }
+    });
+  }
+});
 
 /***/ }),
 

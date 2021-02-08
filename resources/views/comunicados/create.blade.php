@@ -2,6 +2,7 @@
 
 @section('styles')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/trix/1.2.4/trix.css" integrity="sha512-qjOt5KmyILqcOoRJXb9TguLjMgTLZEgROMxPlf1KuScz0ZMovl0Vp8dnn9bD5dy3CcHW5im+z5gZCKgYek9MPA==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.2/dropzone.min.css" integrity="sha512-3g+prZHHfmnvE1HBLwUnVuunaPOob7dpksI7/v6UnF/rnKGwHf/GdEq9K7iEN7qTtW+S0iivTcGpeTBqqB04wA==" crossorigin="anonymous" />
 @endsection
 
 @section('botones')
@@ -50,7 +51,7 @@
                 </div>
 
                 <div class="form-group mt-3">
-                    <label for="imagen">Elige una imagen</label>
+                    <label for="imagen">Elige una imagen de portada</label>
                     <input 
                         id="imagen"
                         type="file"
@@ -62,6 +63,12 @@
                             <strong>{{$message}}</strong>
                         </span>
                     @enderror
+                </div>
+
+                <div class="form-group mt-3">
+                    <label for="imagenes">Subir más imágenes (opcional)</label>
+                    <div id="dropzone" class="dropzone"></div>
+                    <input type="hidden" id="uuid" name="uuid" value="{{ Str::uuid()->toString() }}">
                 </div>
 
                 <div class="form-group">
@@ -76,4 +83,5 @@
 
 @section('scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/trix/1.2.4/trix.js" integrity="sha512-zEL66hBfEMpJUz7lHU3mGoOg12801oJbAfye4mqHxAbI0TTyTePOOb2GFBCsyrKI05UftK2yR5qqfSh+tDRr4Q==" crossorigin="anonymous" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.2/dropzone.min.js" integrity="sha512-8l10HpXwk93V4i9Sm38Y1F3H4KJlarwdLndY9S5v+hSAODWMx3QcAVECA23NTMKPtDOi53VFfhIuSsBjjfNGnA==" crossorigin="anonymous" defer></script>
 @endsection

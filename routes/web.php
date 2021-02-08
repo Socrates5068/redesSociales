@@ -26,7 +26,10 @@ Route::get('/comunicados/{comunicado}/edit', 'ComunicadoController@edit')->name(
 Route::put('/comunicados/{comunicado}', 'ComunicadoController@update')->name('comunicados.update');
 Route::delete('/comunicados/{comunicado}', 'ComunicadoController@destroy')->name('comunicados.destroy');
 
-//Buscador de recetas
+Route::post('/imagenes/store', 'ImagenController@store')->name('imagenes.store');
+Route::post('/imagenes/destroy', 'ImagenController@destroy')->name('imagenes.destroy');
+
+//Buscador de comunicados
 Route::get('/buscar', 'ComunicadoController@search')->name('buscar.show');
 
 Route::get('/perfiles/{perfil}','PerfilController@show')->name('perfiles.show');
