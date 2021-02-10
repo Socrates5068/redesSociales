@@ -2,6 +2,7 @@
 
 @section('styles')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/trix/1.2.4/trix.css" integrity="sha512-qjOt5KmyILqcOoRJXb9TguLjMgTLZEgROMxPlf1KuScz0ZMovl0Vp8dnn9bD5dy3CcHW5im+z5gZCKgYek9MPA==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.2/dropzone.min.css" integrity="sha512-3g+prZHHfmnvE1HBLwUnVuunaPOob7dpksI7/v6UnF/rnKGwHf/GdEq9K7iEN7qTtW+S0iivTcGpeTBqqB04wA==" crossorigin="anonymous" />
 @endsection
 
 @section('botones')
@@ -71,6 +72,20 @@
                         </span>
                     @enderror
                 </div>
+                
+                <div>
+                    <div class="form-group">
+                        <label for="imagen">Imágenes</label>
+                        <div id="dropzone" class="dropzone form-control"></div>
+                    </div>
+
+                    @if(count($imagenes) > 0)
+                        @foreach($imagenes as $imagen)
+                            <input class="galeria" type="hidden" value="{{$imagen->ruta_imagen}}">
+                        @endforeach
+                    @endif
+                </div>
+                <input type="hidden" id="uuid" name="uuid" value="{{ $comunicado->uuid }}">
 
                 <div class="form-group">
                      <input type="submit" class="btn btn-primary" value="Actualizar comunicado" />
@@ -84,4 +99,5 @@
 
 @section('scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/trix/1.2.4/trix.js" integrity="sha512-zEL66hBfEMpJUz7lHU3mGoOg12801oJbAfye4mqHxAbI0TTyTePOOb2GFBCsyrKI05UftK2yR5qqfSh+tDRr4Q==" crossorigin="anonymous" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.2/dropzone.min.js" integrity="sha512-8l10HpXwk93V4i9Sm38Y1F3H4KJlarwdLndY9S5v+hSAODWMx3QcAVECA23NTMKPtDOi53VFfhIuSsBjjfNGnA==" crossorigin="anonymous" defer></script>
 @endsection

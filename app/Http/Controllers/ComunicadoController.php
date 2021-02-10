@@ -193,7 +193,10 @@ class ComunicadoController extends Controller
         //Revisar el policy
         $this->authorize('view', $comunicado);
 
-        return view('comunicados.edit', compact('comunicado'));
+        // Obtiene las imagenes del comunicado
+        $imagenes = Imagen::where('id_comunicado', $comunicado->uuid)->get();
+
+        return view('comunicados.edit', compact('comunicado', 'imagenes'));
     }
 
     /**

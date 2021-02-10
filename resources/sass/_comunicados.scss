@@ -119,3 +119,13 @@ trix-editor {
         }
     }
 }
+
+.dropzone .dz-preview .dz-image img {
+    display: block;
+    object-fit: scale-down;
+    width: 200px;
+}
+
+#dropzone {
+    height: auto;
+}
