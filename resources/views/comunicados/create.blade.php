@@ -71,6 +71,11 @@
                     <input type="hidden" id="uuid" name="uuid" value="{{ Str::uuid()->toString() }}">
                 </div>
 
+                <div class="form-group mt-3">
+                    <label for="archivos">Subir archivos (opcional)</label>
+                    <div id="dropzone2" class="dropzone"></div>
+                </div>
+
                 <div class="form-group">
                      <input type="submit" class="btn btn-primary" value="Agregar comunicado" />
                  </div>

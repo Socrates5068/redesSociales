@@ -32,7 +32,8 @@
         <div class="owl-carousel owl-theme">
             @foreach($nuevas as $nueva)
             <div class="card">                
-                <img src="/storage/{{ $nueva->imagen}}" class="card-img-top" alt="imagen comunicado" {{-- style="width: 100px;" --}}>
+                <img src="/storage/{{ $nueva->imagen}}" class="card-img-top" 
+                alt="imagen comunicado" {{-- style="width: 100px;" --}}>
 
                 <div class="card-body h-100">
                     <h3>{{ Str::title ($nueva->titulo) }}</h3>
@@ -40,7 +41,8 @@
                     <p>{{ Str::words( strip_tags( $nueva->mensaje ), 20 ) }}</p>
 
                     <a href="{{ route('comunicados.show', ['comunicado' => $nueva->id ])}}"
-                        class="btn btn-primary d-block font-weight-bold text-uppercase btn-receta fixed-bottom mb-1"
+                        class="btn btn-primary d-block font-weight-bold text-uppercase 
+                        btn-receta fixed-bottom mb-1"
                     >Ver comunicado</a>
                 </div>
             </div>
@@ -56,7 +58,8 @@
                             <div class="card-body shadow">
                                 <h3 class="d-flex justify-content-center">{{$comunicado->titulo}}</h3>
                                 <a href="{{ route('comunicados.show', ['comunicado' => $comunicado->id]) }}" 
-                                    class="btn btn-primary d-block mt-4 text-uppercase font-weight-bold btn-receta">Ver comunicado</a>
+                                    class="btn btn-primary d-block mt-4 text-uppercase 
+                                    font-weight-bold btn-receta">Ver comunicado</a>
                             </div>
                         </div>
                     </div>

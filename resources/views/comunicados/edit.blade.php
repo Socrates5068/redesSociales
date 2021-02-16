@@ -85,6 +85,20 @@
                         @endforeach
                     @endif
                 </div>
+
+                <div>
+                    <div class="form-group">
+                        <label for="imagen">Archivos</label>
+                        <div id="dropzone2" class="dropzone"></div>
+                    </div>
+
+                    @if(count($archivos) > 0)
+                        @foreach($archivos as $archivo)
+                            <input class="galeria1" type="hidden" value="{{$archivo->ruta_archivo}}">
+                        @endforeach
+                    @endif
+                </div>
+
                 <input type="hidden" id="uuid" name="uuid" value="{{ $comunicado->uuid }}">
 
                 <div class="form-group">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Archivo;
 use App\Tweet;
 use App\Comunicado;
 use App\Imagen;
@@ -179,6 +180,10 @@ class ComunicadoController extends Controller
     {
         $imagenes = Imagen::where('id_comunicado', $comunicado->uuid)->get();
         $comunicado->imagenes = $imagenes;
+
+        $archivos = Archivo::where('id_comunicado', $comunicado->uuid)->get();
+        $comunicado->archivos = $archivos;
+        
         return view('comunicados.show', compact('comunicado'));
     }
 
@@ -195,8 +200,11 @@ class ComunicadoController extends Controller
 
         // Obtiene las imagenes del comunicado
         $imagenes = Imagen::where('id_comunicado', $comunicado->uuid)->get();
+        
+        // Obtiene las imagenes del comunicado
+        $archivos = Archivo::where('id_comunicado', $comunicado->uuid)->get();
 
-        return view('comunicados.edit', compact('comunicado', 'imagenes'));
+        return view('comunicados.edit', compact('comunicado', 'imagenes', 'archivos'));
     }
 
     /**
