@@ -62,7 +62,13 @@ class ComunicadoController extends Controller
     public function store(Request $request)
     {
         $last = Comunicado::latest('id')->first();
-        $id = $last->id+1;
+        if (isset($last)) {
+            $id = $last->id+1;
+        } else {
+            $id = "0";
+        }
+        
+        $ver = "... Ver comunicado completo en: https://socialsistemas.com/comunicados/";
 
         //validación
         $data = request()->validate([
@@ -105,7 +111,7 @@ class ComunicadoController extends Controller
             
             //Publicar en Twitter
             $message = Tweet::create([
-                'tweet' => substr(strip_tags($data['mensaje']), 0, 200)."... Ver comunicado completo en https://socialsistemas.com/comunicados/".$id,
+                'tweet' => substr(strip_tags($data['mensaje']), 0, 200).$ver.$id,
                 'img' => $ruta_imagen
             ]);
 
@@ -114,7 +120,7 @@ class ComunicadoController extends Controller
 
             //Publicar en Telegram
             $bot = new \TelegramBot\Api\BotApi('1411157049:AAFKE0FnIRvOS_h8vkJoyhceiUctiaLE33c');
-            $bot->sendMessage("-426827268", strip_tags($data['mensaje'])."... Ver comunicado completo en https://socialsistemas.com/comunicados/".$id);
+            $bot->sendMessage("-426827268", substr(strip_tags($data['mensaje']), 0, 200).$ver.$id);
             
             $media = new \TelegramBot\Api\Types\InputMedia\ArrayOfInputMedia();
             /* //para producción
@@ -126,7 +132,9 @@ class ComunicadoController extends Controller
             $bot->sendMediaGroup("-426827268", $media);
 
             ##Publicar en facebook
-            $fields = array('url' => 'https://socialsistemas.com/storage/'.$ruta_imagen, 'caption' => strip_tags($data['mensaje'])."... Ver comunicado completo en https://socialsistemas.com/comunicados/".$id, 'access_token' => 'EAAJlNVhYjRMBAGe0wczW6YmU4D469Mjfsaxta8guRLNEazMmqfpfjnWp6kA1tf8bDBzTRI8wBhaZBDGacv2PEMsMwwjFV7Pw8b2kPzpFKz1OferCPpkyj6HsmDVtGbY00MJP500iRZAl55pm8TRfwSsJqX2UcMkmeQryyhazgw1QMJ6ZBxe93waUwVzqeIZD');
+            //para producción
+            //$fields = array('url' => 'https://socialsistemas.com/storage/'.$ruta_imagen, 'caption' => substr(strip_tags($data['mensaje']), 0, 200).$ver.$id, 'access_token' => 'EAAJlNVhYjRMBAGe0wczW6YmU4D469Mjfsaxta8guRLNEazMmqfpfjnWp6kA1tf8bDBzTRI8wBhaZBDGacv2PEMsMwwjFV7Pw8b2kPzpFKz1OferCPpkyj6HsmDVtGbY00MJP500iRZAl55pm8TRfwSsJqX2UcMkmeQryyhazgw1QMJ6ZBxe93waUwVzqeIZD');
+            $fields = array('url' => 'https://avatars3.githubusercontent.com/u/9335727', 'caption' => substr(strip_tags($data['mensaje']), 0, 200).$ver.$id, 'access_token' => 'EAAJlNVhYjRMBAGe0wczW6YmU4D469Mjfsaxta8guRLNEazMmqfpfjnWp6kA1tf8bDBzTRI8wBhaZBDGacv2PEMsMwwjFV7Pw8b2kPzpFKz1OferCPpkyj6HsmDVtGbY00MJP500iRZAl55pm8TRfwSsJqX2UcMkmeQryyhazgw1QMJ6ZBxe93waUwVzqeIZD');
             $fields_string = http_build_query($fields);
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, "https://graph.facebook.com/103785118245947/photos");
@@ -149,7 +157,7 @@ class ComunicadoController extends Controller
 
             #Publicar en Twitter
             $message = Tweet::create([
-                'tweet' => substr(strip_tags($data['mensaje']), 0, 200)."... Ver comunicado completo en https://socialsistemas.com/comunicados/".$id,
+                'tweet' => substr(strip_tags($data['mensaje']), 0, 200).$ver.$id,
             ]);
 
             $message->notify(new TweetPublished());
@@ -157,10 +165,10 @@ class ComunicadoController extends Controller
 
             #Publicar en Telegram
             $bot = new \TelegramBot\Api\BotApi('1411157049:AAFKE0FnIRvOS_h8vkJoyhceiUctiaLE33c');
-            $bot->sendMessage("-426827268", strip_tags($data['mensaje'])."... Ver comunicado completo en https://socialsistemas.com/comunicados/".$id);
+            $bot->sendMessage("-426827268", substr(strip_tags($data['mensaje']), 0, 200).$ver.$id);
 
             #Publicar en facebook
-            $fields = array('message' => strip_tags($data['mensaje'])."... Ver comunicado completo en https://socialsistemas.com/comunicados/".$id, 'access_token' => 'EAAJlNVhYjRMBAGe0wczW6YmU4D469Mjfsaxta8guRLNEazMmqfpfjnWp6kA1tf8bDBzTRI8wBhaZBDGacv2PEMsMwwjFV7Pw8b2kPzpFKz1OferCPpkyj6HsmDVtGbY00MJP500iRZAl55pm8TRfwSsJqX2UcMkmeQryyhazgw1QMJ6ZBxe93waUwVzqeIZD');
+            $fields = array('message' => substr(strip_tags($data['mensaje']), 0, 200).$ver.$id, 'access_token' => 'EAAJlNVhYjRMBAGe0wczW6YmU4D469Mjfsaxta8guRLNEazMmqfpfjnWp6kA1tf8bDBzTRI8wBhaZBDGacv2PEMsMwwjFV7Pw8b2kPzpFKz1OferCPpkyj6HsmDVtGbY00MJP500iRZAl55pm8TRfwSsJqX2UcMkmeQryyhazgw1QMJ6ZBxe93waUwVzqeIZD');
             $fields_string = http_build_query($fields);
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, "https://graph.facebook.com/103785118245947/feed");

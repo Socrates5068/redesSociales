@@ -17,7 +17,7 @@ class CreateComunicadosTable extends Migration
             $table->id();
             $table->string('titulo');
             $table->text('mensaje');
-            $table->string('imagen')->default('../images/logo.jpg');
+            $table->string('imagen')->nullable();
             $table->uuid('uuid')->nullable();
             $table->uuid('uuid2')->nullable();
             $table->timestamps();
