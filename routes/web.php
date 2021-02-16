@@ -26,8 +26,13 @@ Route::get('/comunicados/{comunicado}/edit', 'ComunicadoController@edit')->name(
 Route::put('/comunicados/{comunicado}', 'ComunicadoController@update')->name('comunicados.update');
 Route::delete('/comunicados/{comunicado}', 'ComunicadoController@destroy')->name('comunicados.destroy');
 
+#imagenes
 Route::post('/imagenes/store', 'ImagenController@store')->name('imagenes.store');
 Route::post('/imagenes/destroy', 'ImagenController@destroy')->name('imagenes.destroy');
+
+#archivos
+Route::post('/archivo/store', 'ArchivoController@store')->name('archivo.store');
+Route::post('/archivo/destroy', 'ArchivoController@destroy')->name('archivo.destroy');
 
 //Buscador de comunicados
 Route::get('/buscar', 'ComunicadoController@search')->name('buscar.show');

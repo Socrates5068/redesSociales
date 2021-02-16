@@ -12,17 +12,33 @@
 
     <div class="imagen-comunicado">
     <img src="/storage/{{$comunicado->imagen}}" 
-    class="w-100" style="img.responsive: max-width: 100%; height: auto;">
+    class="w-100 mb-5" style="img.responsive: max-width: 100%; height: auto;">
     </div>
 
-    <div class="form-group" class="align-content-center">
-        <strong><label for="prueba">IMÁGENES DE REFERENCIA</label></strong>
+    <div class="form-group">
+        <label for="prueba"><h3><strong>IMÁGENES DE REFERENCIA</strong></h2></label>
+            <br>
         @php
             $imgs = $comunicado->imagenes;
         @endphp
         @foreach($imgs as $img)
-            <img src="/storage/{{$img->ruta_imagen}}" 
-            class="w-100" />
+            <a href="/storage/{{$img->ruta_imagen}}"><img src="/storage/{{$img->ruta_imagen}}" 
+            class="" style="max-width: 200px; height: auto;" /></a>
+        @endforeach    
+    </div>
+
+    <div class="form-group">
+        <strong><label for="prueba"><h3><strong>ARCHIVOS DE REFERENCIA</strong></h2></label></strong>
+        <br>
+        @php
+            $archivos = $comunicado->archivos;
+            $cont = 1;
+        @endphp
+        @foreach($archivos as $archivo)
+            <strong><a href="/storage/{{$archivo->ruta_archivo}}" class="">Archivo {{$cont}}</a></strong>
+            @php
+                $cont++;
+            @endphp
         @endforeach    
     </div>
 

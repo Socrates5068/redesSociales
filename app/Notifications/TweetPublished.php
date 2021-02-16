@@ -66,10 +66,10 @@ class TweetPublished extends Notification
     public function toTwitter ($notifiable)
     {
         if ($notifiable->img == null) {
-            return new TwitterStatusUpdate(substr($notifiable->tweet, 0, 279));
+            return new TwitterStatusUpdate($notifiable->tweet);
         } else {
             //$img = "C:/laragon/www/social/storage/app/public/" . $notifiable->img;
-            return (new TwitterStatusUpdate(substr($notifiable->tweet, 0, 279)))->withImage(public_path("storage/" . $notifiable->img));
+            return (new TwitterStatusUpdate($notifiable->tweet))->withImage(public_path("storage/" . $notifiable->img));
         }
     }
 }

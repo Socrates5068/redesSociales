@@ -77738,6 +77738,8 @@ jQuery(document).ready(function () {
 });
 
 __webpack_require__(/*! ./dropzone */ "./resources/js/dropzone.js");
+
+__webpack_require__(/*! ./dropzone2 */ "./resources/js/dropzone2.js");
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")))
 
 /***/ }),
@@ -77991,6 +77993,79 @@ document.addEventListener('DOMContentLoaded', function () {
           uuid: document.querySelector('#uuid').value
         };
         axios.post('/imagenes/destroy', params).then(function (respuesta) {
+          console.log(respuesta); // Eliminar del DOM
+
+          file.previewElement.parentNode.removeChild(file.previewElement);
+        });
+      }
+    });
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/dropzone2.js":
+/*!***********************************!*\
+  !*** ./resources/js/dropzone2.js ***!
+  \***********************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+
+document.addEventListener('DOMContentLoaded', function () {
+  if (document.querySelector('#dropzone2')) {
+    Dropzone.autoDiscover = false;
+    var dropzone = new Dropzone('div#dropzone2', {
+      url: '/archivo/store',
+      dictDefaultMessage: 'Sube hasta 10 archivos',
+      maxFiles: 10,
+      required: true,
+      acceptedFiles: ".pdf,.doc,.docx,.xls,.xlsx",
+      addRemoveLinks: true,
+      dictRemoveFile: "Eliminar Archivo",
+      headers: {
+        'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]').content
+      },
+      init: function init() {
+        var _this = this;
+
+        var galeria1 = document.querySelectorAll('.galeria1');
+
+        if (galeria1.length > 0) {
+          galeria1.forEach(function (archivo) {
+            var archivoPublicado = {};
+            archivoPublicado.size = archivo.size;
+            archivoPublicado.name = archivo.value;
+            archivoPublicado.nombreServidor = archivo.value;
+
+            _this.options.addedfile.call(_this, archivoPublicado);
+
+            _this.options.thumbnail.call(_this, archivoPublicado, "/storage/archivos/documentos.jpg");
+
+            archivoPublicado.previewElement.classList.add('dz-success');
+            archivoPublicado.previewElement.classList.add('dz-complete');
+          });
+        }
+      },
+      success: function success(file, respuesta) {
+        // console.log(file);
+        console.log(respuesta);
+        file.nombreServidor = respuesta.archivo;
+      },
+      sending: function sending(file, xhr, formData) {
+        formData.append('uuid', document.querySelector('#uuid').value); // console.log('enviando');
+      },
+      removedfile: function removedfile(file, respuesta) {
+        console.log(file);
+        var params = {
+          archivo: file.nombreServidor,
+          uuid: document.querySelector('#uuid').value
+        };
+        axios.post('/archivo/destroy', params).then(function (respuesta) {
           console.log(respuesta); // Eliminar del DOM
 
           file.previewElement.parentNode.removeChild(file.previewElement);

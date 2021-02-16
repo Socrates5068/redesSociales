@@ -64,3 +64,4 @@ jQuery(document).ready(function() {
 });
 
 require('./dropzone');
+require('./dropzone2');

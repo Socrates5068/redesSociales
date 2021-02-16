@@ -19,6 +19,7 @@ class CreateComunicadosTable extends Migration
             $table->text('mensaje');
             $table->string('imagen')->default('../images/logo.jpg');
             $table->uuid('uuid')->nullable();
+            $table->uuid('uuid2')->nullable();
             $table->timestamps();
             $table->foreignId('user_id')->references('id')->on('users')->comment('El usuario que crea el mensaje');
         });
