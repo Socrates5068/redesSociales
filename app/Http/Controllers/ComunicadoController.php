@@ -61,6 +61,9 @@ class ComunicadoController extends Controller
      */
     public function store(Request $request)
     {
+        $last = Comunicado::latest('id')->first();
+        $id = $last->id+1;
+
         //validación
         $data = request()->validate([
             'titulo' => 'required|min:4',
@@ -71,7 +74,8 @@ class ComunicadoController extends Controller
 
         if ($request['imagen'] != null) {
             //obtener la ruta de la imagen
-            $ruta_imagen = $request['imagen']->store('upload-comunicados', 'public');      
+            $ruta_imagen = $request['imagen']->store('upload-comunicados', 'public');
+            //return $ruta_imagen;
             
             //Redimensionar la imagen
             $img = Image::make(public_path("storage/{$ruta_imagen}"))->resize(900, null, function ($constraint) {
@@ -100,34 +104,36 @@ class ComunicadoController extends Controller
             ]);
             
             //Publicar en Twitter
-            /* $message = Tweet::create([
-                'tweet' => strip_tags($data['mensaje']),
+            $message = Tweet::create([
+                'tweet' => substr(strip_tags($data['mensaje']), 0, 200)."... Ver comunicado completo en https://socialsistemas.com/comunicados/".$id,
                 'img' => $ruta_imagen
             ]);
 
             $message->notify(new TweetPublished());
-            $message->delete(); */
+            $message->delete();
 
             //Publicar en Telegram
-            /*$bot = new \TelegramBot\Api\BotApi('1411157049:AAFKE0FnIRvOS_h8vkJoyhceiUctiaLE33c');
-            $bot->sendMessage("-426827268", strip_tags($data['mensaje']));
+            $bot = new \TelegramBot\Api\BotApi('1411157049:AAFKE0FnIRvOS_h8vkJoyhceiUctiaLE33c');
+            $bot->sendMessage("-426827268", strip_tags($data['mensaje'])."... Ver comunicado completo en https://socialsistemas.com/comunicados/".$id);
             
             $media = new \TelegramBot\Api\Types\InputMedia\ArrayOfInputMedia();
-            $media->addItem(new \TelegramBot\Api\Types\InputMedia\InputMediaPhoto('https://socialsistemas.com/storage/'.$ruta_imagen));
-            //$media->addItem(new TelegramBot\Api\Types\InputMedia\InputMediaPhoto('https://avatars3.githubusercontent.com/u/9335727'));
+            /* //para producción
+            $media->addItem(new \TelegramBot\Api\Types\InputMedia\InputMediaPhoto('https://socialsistemas.com/storage/'.$ruta_imagen)); */
+            //$media->addItem(new \TelegramBot\Api\Types\InputMedia\InputMediaPhoto('C:\laragon\www\social\public\storage/'.$ruta_imagen));
+            $media->addItem(new \TelegramBot\Api\Types\InputMedia\InputMediaPhoto('https://avatars3.githubusercontent.com/u/9335727'));
             // Same for video
             // $media->addItem(new TelegramBot\Api\Types\InputMedia\InputMediaVideo('http://clips.vorwaerts-gmbh.de/VfE_html5.mp4'));
-            $bot->sendMediaGroup("-426827268", $media);*/
+            $bot->sendMediaGroup("-426827268", $media);
 
             ##Publicar en facebook
-            /*$fields = array('url' => 'https://socialsistemas.com/storage/'.$ruta_imagen, 'caption' => strip_tags($data['mensaje']), 'access_token' => 'EAAJlNVhYjRMBABGWlmIQrjab0aDEqsVBwaffdW5U4INWN8JWyO2riBu4NbiTeUZCkZBX2nBCzpnJlOZA6ENy6y1jPDMD6nY2RmTO1IrWvBvFmc9xdn8ZBGY0AWF6awwZAIhF2SccvWGvzMahowyApMTsTFbHg4CZBcvggMfZAllOSh5JwKGisqTOyJHcYToeB0ZD');
+            $fields = array('url' => 'https://socialsistemas.com/storage/'.$ruta_imagen, 'caption' => strip_tags($data['mensaje'])."... Ver comunicado completo en https://socialsistemas.com/comunicados/".$id, 'access_token' => 'EAAJlNVhYjRMBAGe0wczW6YmU4D469Mjfsaxta8guRLNEazMmqfpfjnWp6kA1tf8bDBzTRI8wBhaZBDGacv2PEMsMwwjFV7Pw8b2kPzpFKz1OferCPpkyj6HsmDVtGbY00MJP500iRZAl55pm8TRfwSsJqX2UcMkmeQryyhazgw1QMJ6ZBxe93waUwVzqeIZD');
             $fields_string = http_build_query($fields);
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, "https://graph.facebook.com/103785118245947/photos");
             curl_setopt($ch, CURLOPT_POST, 1);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $fields_string);
             $data = curl_exec($ch);
-            curl_close($ch);*/
+            curl_close($ch);
 
             //Redireccionar
             return redirect()->action('ComunicadoController@index');
@@ -142,26 +148,26 @@ class ComunicadoController extends Controller
             ]);
 
             #Publicar en Twitter
-            /* $message = Tweet::create([
-                'tweet' => strip_tags($data['mensaje']),
+            $message = Tweet::create([
+                'tweet' => substr(strip_tags($data['mensaje']), 0, 200)."... Ver comunicado completo en https://socialsistemas.com/comunicados/".$id,
             ]);
 
             $message->notify(new TweetPublished());
-            $message->delete(); */
+            $message->delete();
 
             #Publicar en Telegram
-            /*$bot = new \TelegramBot\Api\BotApi('1411157049:AAFKE0FnIRvOS_h8vkJoyhceiUctiaLE33c');
-            $bot->sendMessage("-426827268", strip_tags($data['mensaje']));*/
+            $bot = new \TelegramBot\Api\BotApi('1411157049:AAFKE0FnIRvOS_h8vkJoyhceiUctiaLE33c');
+            $bot->sendMessage("-426827268", strip_tags($data['mensaje'])."... Ver comunicado completo en https://socialsistemas.com/comunicados/".$id);
 
             #Publicar en facebook
-            /*$fields = array('message' => strip_tags($data['mensaje']), 'access_token' => 'EAAJlNVhYjRMBABGWlmIQrjab0aDEqsVBwaffdW5U4INWN8JWyO2riBu4NbiTeUZCkZBX2nBCzpnJlOZA6ENy6y1jPDMD6nY2RmTO1IrWvBvFmc9xdn8ZBGY0AWF6awwZAIhF2SccvWGvzMahowyApMTsTFbHg4CZBcvggMfZAllOSh5JwKGisqTOyJHcYToeB0ZD');
+            $fields = array('message' => strip_tags($data['mensaje'])."... Ver comunicado completo en https://socialsistemas.com/comunicados/".$id, 'access_token' => 'EAAJlNVhYjRMBAGe0wczW6YmU4D469Mjfsaxta8guRLNEazMmqfpfjnWp6kA1tf8bDBzTRI8wBhaZBDGacv2PEMsMwwjFV7Pw8b2kPzpFKz1OferCPpkyj6HsmDVtGbY00MJP500iRZAl55pm8TRfwSsJqX2UcMkmeQryyhazgw1QMJ6ZBxe93waUwVzqeIZD');
             $fields_string = http_build_query($fields);
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, "https://graph.facebook.com/103785118245947/feed");
             curl_setopt($ch, CURLOPT_POST, 1);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $fields_string);
             $data = curl_exec($ch);
-            curl_close($ch);*/
+            curl_close($ch);
 
             //Redireccionar
             return redirect()->action('ComunicadoController@index');
