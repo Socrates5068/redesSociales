@@ -35,7 +35,13 @@
                             <tr>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
-                                <td>{{ $user->email_verified_at }}</td>
+                                <td>
+                                    @if (isset($user->email_verified_at))
+                                        SI
+                                    @else
+                                        NO
+                                    @endif
+                                </td>
                                 <td>{{ $user->rol }}</td>
                                 <td>
                                     <a href="{{ route('usuarios.edit', ['user' => $user->id]) }}"

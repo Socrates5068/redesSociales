@@ -60,11 +60,16 @@
                         name="imagen"
                     />
 
-                    <div class="mt-4">
-                        <p>Imagen Actual</p>
-                    <img src="/storage/{{$comunicado->imagen}}" style="height: 300px;">
+                    @if($comunicado->imagen)
+                        
+                        <div class="mt-4">
+                            <p>Imagen Actual</p>
+                        <img src="/storage/{{$comunicado->imagen}}" style="height: 300px;">
 
-                    </div>
+                        </div>
+                    @endif
+                        
+                    
 
                     @error('imagen')
                         <span class="invalid-feedback d-block" role="alert">

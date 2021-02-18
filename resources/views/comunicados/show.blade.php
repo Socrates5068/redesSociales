@@ -10,37 +10,46 @@
 <div class="container col-9 bg-white p-3 shadow">
     <h1 class="text-center mb-4">{{$comunicado->titulo}}</h1>
 
-    <div class="imagen-comunicado">
-    <img src="/storage/{{$comunicado->imagen}}" 
-    class="w-100 mb-5" style="img.responsive: max-width: 100%; height: auto;">
-    </div>
+    @if(isset($comunicado->imagen))
+        <div class="imagen-comunicado">
+            <img src="/storage/{{$comunicado->imagen}}" 
+            class="w-100 mb-5" style="img.responsive: max-width: 100%; height: auto;">
+        </div>       
+    @endif
+    
+    @php
+        $imgs = $comunicado->imagenes;
+    @endphp
+    
+    @if($imgs->count())
+        <div class="form-group">
+            <label for="prueba"><h3><strong>IMÁGENES DE REFERENCIA</strong></h2></label>
+                <br>
+                
+            @foreach($imgs as $img)
+                <a href="/storage/{{$img->ruta_imagen}}"><img src="/storage/{{$img->ruta_imagen}}" 
+                class="" style="max-width: 200px; height: auto;" /></a>
+            @endforeach    
+        </div>
+    @endif
 
-    <div class="form-group">
-        <label for="prueba"><h3><strong>IMÁGENES DE REFERENCIA</strong></h2></label>
+    @php
+        $archivos = $comunicado->archivos;
+        $cont = 1;
+    @endphp
+
+    @if($archivos->count())  
+        <div class="form-group">
+            <strong><label for="prueba"><h3><strong>ARCHIVOS DE REFERENCIA</strong></h2></label></strong>
             <br>
-        @php
-            $imgs = $comunicado->imagenes;
-        @endphp
-        @foreach($imgs as $img)
-            <a href="/storage/{{$img->ruta_imagen}}"><img src="/storage/{{$img->ruta_imagen}}" 
-            class="" style="max-width: 200px; height: auto;" /></a>
-        @endforeach    
-    </div>
-
-    <div class="form-group">
-        <strong><label for="prueba"><h3><strong>ARCHIVOS DE REFERENCIA</strong></h2></label></strong>
-        <br>
-        @php
-            $archivos = $comunicado->archivos;
-            $cont = 1;
-        @endphp
-        @foreach($archivos as $archivo)
-            <strong><a href="/storage/{{$archivo->ruta_archivo}}" class="">Archivo {{$cont}}</a></strong>
-            @php
-                $cont++;
-            @endphp
-        @endforeach    
-    </div>
+            @foreach($archivos as $archivo)
+                <strong><a href="/storage/{{$archivo->ruta_archivo}}" class="">Archivo {{$cont}}</a></strong>
+                @php
+                    $cont++;
+                @endphp
+            @endforeach    
+        </div>
+    @endif
 
     <div class="receta-meta mt-3">
         <p>

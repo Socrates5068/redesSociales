@@ -16,8 +16,8 @@ class CreatePerfilsTable extends Migration
         Schema::create('perfils', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->references('id')->on('users');
-            $table->text('biografia')->nullable();
-            $table->string('imagen')->nullable();
+            $table->text('biografia', 2000)->nullable();
+            $table->string('imagen', 100)->nullable();
             $table->timestamps();
         });
     }

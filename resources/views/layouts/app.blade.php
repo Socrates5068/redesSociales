@@ -23,6 +23,14 @@
     @yield('styles')
 </head>
 <body>
+    {{-- Botones redes sociales --}}
+	<div class="social">
+		<a href="https://twitter.com/SistemasPotosi" target="blank"><img class="mb-3" src="https://socialsistemas.com/images/twitter.svg" alt="twitter"></a>
+		<a href="https://www.facebook.com/Ingenier%C3%ADa-de-sistemas-103785118245947/" target="blank"><img class="mb-3" src="https://socialsistemas.com/images/facebook.svg" alt="facebook"></a>
+		<a href="https://t.me/joinchat/GXDeBDZ0XA3hVe_j" target="blank"><img src="https://socialsistemas.com/images/telegram.svg" alt="telegram"></a>
+	</div>
+
+    {{-- Nav bar --}}
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-s">
             <div class="container">

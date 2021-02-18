@@ -72,8 +72,8 @@ class ComunicadoController extends Controller
 
         //validación
         $data = request()->validate([
-            'titulo' => 'required|min:4',
-            'mensaje' => 'required|max:2000',
+            'titulo' => 'required|min:4|max:50',
+            'mensaje' => 'min:4|max:2000',
             'uuid' => 'required',
             'imagen' => 'image'
         ]);
@@ -110,38 +110,38 @@ class ComunicadoController extends Controller
             ]);
             
             //Publicar en Twitter
-            $message = Tweet::create([
+            /* $message = Tweet::create([
                 'tweet' => substr(strip_tags($data['mensaje']), 0, 200).$ver.$id,
                 'img' => $ruta_imagen
             ]);
 
             $message->notify(new TweetPublished());
-            $message->delete();
+            $message->delete(); */
 
             //Publicar en Telegram
-            $bot = new \TelegramBot\Api\BotApi('1411157049:AAFKE0FnIRvOS_h8vkJoyhceiUctiaLE33c');
+            /* $bot = new \TelegramBot\Api\BotApi('1411157049:AAFKE0FnIRvOS_h8vkJoyhceiUctiaLE33c');
             $bot->sendMessage("-426827268", substr(strip_tags($data['mensaje']), 0, 200).$ver.$id);
             
-            $media = new \TelegramBot\Api\Types\InputMedia\ArrayOfInputMedia();
+            $media = new \TelegramBot\Api\Types\InputMedia\ArrayOfInputMedia(); */
             /* //para producción
             $media->addItem(new \TelegramBot\Api\Types\InputMedia\InputMediaPhoto('https://socialsistemas.com/storage/'.$ruta_imagen)); */
             //$media->addItem(new \TelegramBot\Api\Types\InputMedia\InputMediaPhoto('C:\laragon\www\social\public\storage/'.$ruta_imagen));
-            $media->addItem(new \TelegramBot\Api\Types\InputMedia\InputMediaPhoto('https://avatars3.githubusercontent.com/u/9335727'));
+           /*  $media->addItem(new \TelegramBot\Api\Types\InputMedia\InputMediaPhoto('https://avatars3.githubusercontent.com/u/9335727'));
             // Same for video
             // $media->addItem(new TelegramBot\Api\Types\InputMedia\InputMediaVideo('http://clips.vorwaerts-gmbh.de/VfE_html5.mp4'));
-            $bot->sendMediaGroup("-426827268", $media);
+            $bot->sendMediaGroup("-426827268", $media); */
 
             ##Publicar en facebook
             //para producción
             //$fields = array('url' => 'https://socialsistemas.com/storage/'.$ruta_imagen, 'caption' => substr(strip_tags($data['mensaje']), 0, 200).$ver.$id, 'access_token' => 'EAAJlNVhYjRMBAGe0wczW6YmU4D469Mjfsaxta8guRLNEazMmqfpfjnWp6kA1tf8bDBzTRI8wBhaZBDGacv2PEMsMwwjFV7Pw8b2kPzpFKz1OferCPpkyj6HsmDVtGbY00MJP500iRZAl55pm8TRfwSsJqX2UcMkmeQryyhazgw1QMJ6ZBxe93waUwVzqeIZD');
-            $fields = array('url' => 'https://avatars3.githubusercontent.com/u/9335727', 'caption' => substr(strip_tags($data['mensaje']), 0, 200).$ver.$id, 'access_token' => 'EAAJlNVhYjRMBAGe0wczW6YmU4D469Mjfsaxta8guRLNEazMmqfpfjnWp6kA1tf8bDBzTRI8wBhaZBDGacv2PEMsMwwjFV7Pw8b2kPzpFKz1OferCPpkyj6HsmDVtGbY00MJP500iRZAl55pm8TRfwSsJqX2UcMkmeQryyhazgw1QMJ6ZBxe93waUwVzqeIZD');
+            /* $fields = array('url' => 'https://avatars3.githubusercontent.com/u/9335727', 'caption' => substr(strip_tags($data['mensaje']), 0, 200).$ver.$id, 'access_token' => 'EAAJlNVhYjRMBAGe0wczW6YmU4D469Mjfsaxta8guRLNEazMmqfpfjnWp6kA1tf8bDBzTRI8wBhaZBDGacv2PEMsMwwjFV7Pw8b2kPzpFKz1OferCPpkyj6HsmDVtGbY00MJP500iRZAl55pm8TRfwSsJqX2UcMkmeQryyhazgw1QMJ6ZBxe93waUwVzqeIZD');
             $fields_string = http_build_query($fields);
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, "https://graph.facebook.com/103785118245947/photos");
             curl_setopt($ch, CURLOPT_POST, 1);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $fields_string);
             $data = curl_exec($ch);
-            curl_close($ch);
+            curl_close($ch); */
 
             //Redireccionar
             return redirect()->action('ComunicadoController@index');
@@ -156,26 +156,26 @@ class ComunicadoController extends Controller
             ]);
 
             #Publicar en Twitter
-            $message = Tweet::create([
+            /* $message = Tweet::create([
                 'tweet' => substr(strip_tags($data['mensaje']), 0, 200).$ver.$id,
             ]);
 
             $message->notify(new TweetPublished());
-            $message->delete();
+            $message->delete(); */
 
             #Publicar en Telegram
-            $bot = new \TelegramBot\Api\BotApi('1411157049:AAFKE0FnIRvOS_h8vkJoyhceiUctiaLE33c');
-            $bot->sendMessage("-426827268", substr(strip_tags($data['mensaje']), 0, 200).$ver.$id);
+            /* $bot = new \TelegramBot\Api\BotApi('1411157049:AAFKE0FnIRvOS_h8vkJoyhceiUctiaLE33c');
+            $bot->sendMessage("-426827268", substr(strip_tags($data['mensaje']), 0, 200).$ver.$id); */
 
             #Publicar en facebook
-            $fields = array('message' => substr(strip_tags($data['mensaje']), 0, 200).$ver.$id, 'access_token' => 'EAAJlNVhYjRMBAGe0wczW6YmU4D469Mjfsaxta8guRLNEazMmqfpfjnWp6kA1tf8bDBzTRI8wBhaZBDGacv2PEMsMwwjFV7Pw8b2kPzpFKz1OferCPpkyj6HsmDVtGbY00MJP500iRZAl55pm8TRfwSsJqX2UcMkmeQryyhazgw1QMJ6ZBxe93waUwVzqeIZD');
+            /* $fields = array('message' => substr(strip_tags($data['mensaje']), 0, 200).$ver.$id, 'access_token' => 'EAAJlNVhYjRMBAGe0wczW6YmU4D469Mjfsaxta8guRLNEazMmqfpfjnWp6kA1tf8bDBzTRI8wBhaZBDGacv2PEMsMwwjFV7Pw8b2kPzpFKz1OferCPpkyj6HsmDVtGbY00MJP500iRZAl55pm8TRfwSsJqX2UcMkmeQryyhazgw1QMJ6ZBxe93waUwVzqeIZD');
             $fields_string = http_build_query($fields);
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, "https://graph.facebook.com/103785118245947/feed");
             curl_setopt($ch, CURLOPT_POST, 1);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $fields_string);
             $data = curl_exec($ch);
-            curl_close($ch);
+            curl_close($ch); */
 
             //Redireccionar
             return redirect()->action('ComunicadoController@index');
